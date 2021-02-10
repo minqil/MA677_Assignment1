@@ -1,6 +1,7 @@
 # MA677_Assignment1
 
 311 Assignment: 
+
 In Chapter 2 of G&S, Example 3.11 uses the binomial distribution to demonstrate the logic of
 hypothesis testing with a simple example.
 
