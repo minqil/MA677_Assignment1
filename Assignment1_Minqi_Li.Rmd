@@ -1,0 +1,54 @@
+---
+title: "Assignment 1"
+author: "Minqi Li"
+date: "2/11/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## The boundary of m
+
+When p=0.6, $\alpha(0.6)$ is the probability of a type 1 error. When p>0.6(say p=0.8), $1-\alpha(0.8)$ is the probability of a type 2 error. Because increasing m makes a type 1 error less likely and a type 2 error more likely, we need to control m so that the probability of a type 1 error and a type 2 error is both less than 0.05. According to $\alpha(p)=\sum_{m\leqslant k\leqslant n}b(n,p,k)$, we can get that the smallest value of m is 69 when $\alpha(0.6)\leqslant0.05$ and the smallest value of m is 73 when $1-\alpha(0.8)\leqslant0.05$. The following is the code:
+
+```{r}
+# The smallest value for  m
+alpha<-function(m){
+  1-pbinom(m-1,100,0.6)
+}
+
+for(m in 1:100){
+  if(alpha(m)>0.05){
+  }else{
+    print(m)
+    break
+  }
+}
+
+# The largest value for m
+beta<-function(m){
+  pbinom(m,100,0.8)
+}
+
+for(m in 1:100){
+  if((beta(m))<0.05){
+  }else{
+    print(m)
+    break
+  }
+}
+```
+
+## Plot
+```{r}
+curve(1-pbinom(69,100,x), 0.4, 1,xlab = "p",ylab = "alpha(p)")
+curve(1-pbinom(73,100,x),add=T)
+rect(xleft = 0.6, ybottom = 0.05, xright = 0.8, ytop = 0.95,border = "gray")
+```
+
+Based on the plot, these two curves represent the function $\alpha(p)$ changing with p changing when m is equal to 69 and 73. As for m=69, when the graph of $\alpha$ enters the box from the bottom, the probability of type 1 error satisfies the requirement. As for m=73, when the graph of $\alpha$ leaves the box from the top, the probability of type 2 error satisfies the requirement.
+
+
+
